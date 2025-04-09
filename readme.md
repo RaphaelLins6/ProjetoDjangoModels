@@ -56,7 +56,9 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 ## 🌟 Funcionalidades Planejadas
 
 📌 Adicionar modelos para categorias e comentários.
+
 📌 Criar views para exibir os dados no frontend.
+
 📌 Melhorar o design do painel administrativo.
 
 ---
@@ -64,6 +66,7 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 ## 🖥️ Tecnologias Utilizadas
 
 *Django:* Framework web para desenvolvimento rápido e seguro.
+
 *SQLite:* Banco de dados leve e integrado.
 
 ---

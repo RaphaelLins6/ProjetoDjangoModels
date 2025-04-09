@@ -19,7 +19,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
+```
 
 ---
 
@@ -70,4 +70,4 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 
 ## 📜 Licença
 
-Este projeto é livre para uso e modificação. Contribuições são bem-vindas! 😊 ```
+Este projeto é livre para uso e modificação. Contribuições são bem-vindas! 😊

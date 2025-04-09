@@ -1,23 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Produtos</title>
+    <title>Produtos por Categoria</title>
+    {% load static %}
+    <style>
+        /* Estilo geral */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'imagens/BackgroundDjango.jpg' %}");
+            background-size: cover;
+            color: #f17501;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #f17501;
+        }
+
+        .categoria {
+            background-color: rgba(230, 229, 229, 0.8);
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #000000;
+            border: 1px solid #000000;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li:hover {
+            background-color: #535353;
+        }
+
+        .sem-estoque {
+            color: red;
+            font-style: italic;
+        }
+
+        .preco {
+            font-weight: bold;
+            color: #349d2a;
+        }
+    </style>
 </head>
 <body>
-    <h1>Lista de Produtos</h1>
-    <ul>
-        {% for produto in produtos %}
-            <li>
-                <strong>{{ produto.nome }}</strong> - {{ produto.preco_formatado }}
-                {% if produto.tem_estoque %}
-                    <span>(Em estoque)</span>
-                {% else %}
-                    <span>(Sem estoque)</span>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+    <h1>Produtos por Categoria</h1>
+
+    {% for categoria in categorias %}
+        <div class="categoria">
+            <h2>{{ categoria.nome }}</h2>
+            <p>{{ categoria.resumo_descricao }}</p>
+
+            {% if categoria.produtos.all %}
+                <ul>
+                    {% for produto in categoria.produtos.all %}
+                        <li>
+                            <span>{{ produto.nome }}</span>
+                            <span class="preco">{{ produto.preco_formatado }}</span>
+                            {% if not produto.tem_estoque %}
+                                <span class="sem-estoque">(sem estoque)</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p><em>Sem produtos nesta categoria.</em></p>
+            {% endif %}
+        </div>
+    {% endfor %}
 </body>
 </html>

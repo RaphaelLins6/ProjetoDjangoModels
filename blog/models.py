@@ -33,7 +33,7 @@ class Produto(models.Model):
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     estoque = models.IntegerField()
     disponivel = models.BooleanField(default=True)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='produtos')
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='produtos')  # Aqui está o related_name
 
     class Meta:
         ordering = ['nome']

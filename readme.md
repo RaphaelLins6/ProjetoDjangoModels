@@ -55,11 +55,9 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 
 ## 🌟 Funcionalidades Planejadas
 
-📌 Adicionar modelos para categorias e comentários.
+📌 Adicionar modelos para categorias e Produtos.
 
 📌 Criar views para exibir os dados no frontend.
-
-📌 Melhorar o design do painel administrativo.
 
 ---
 

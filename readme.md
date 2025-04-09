@@ -8,7 +8,7 @@ Bem-vindo ao repositório do **Projeto Django Models**! Este projeto foi desenvo
 
 Os **modelos** são definidos no arquivo `blog/models.py`. Eles representam as tabelas do banco de dados e permitem manipular os dados de forma programática. Aqui está um exemplo de modelo para um post de blog:
 
-` ```python
+```python
 from django.db import models
 
 class Post(models.Model):
@@ -19,7 +19,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-`
+
 
 ---
 

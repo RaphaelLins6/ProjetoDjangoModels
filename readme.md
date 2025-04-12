@@ -72,3 +72,12 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 ## 📜 Licença
 
 Este projeto é livre para uso e modificação. Contribuições são bem-vindas! 😊
+
+---
+
+## 👥 Autores
+
+**Turma de ciência da computação - UDF**
+- [@RaphaelLins6](https://www.github.com/RaphaelLins6) - Raphael Lins (RGM:27797660)
+- [@jotape99](https://www.github.com/jotape99) - João Pedro (RGM:28167333)
+- [@joaogkt](https://www.github.com/joaogkt) - João Gabriel (RGM:28017188)

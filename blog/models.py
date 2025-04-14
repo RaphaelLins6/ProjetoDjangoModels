@@ -49,3 +49,38 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+
+class Cliente(models.Model):
+    nome = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    telefone = models.CharField(max_length=15, blank=True)
+    endereco = models.TextField(blank=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['nome']
+        verbose_name = 'Cliente'
+
+    def __str__(self):
+        return self.nome
+    
+class Pedido(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')
+    produtos = models.ManyToManyField(Produto, through='ItemPedido')
+    criado_em = models.DateTimeField(auto_now_add=True)
+    finalizado = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-criado_em']
+        verbose_name = 'Pedido'
+
+    def __str__(self):
+        return f'Pedido #{self.id} - {self.cliente.nome}'
+    
+class ItemPedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.quantidade}x {self.produto.nome}'

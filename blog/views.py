@@ -1,6 +1,6 @@
-from django.shortcuts import render
-from .models import Produto
-from .models import Categoria
+from django.shortcuts import render, redirect
+from .models import Produto, Categoria
+
 
 # Create your views here.
 
@@ -11,3 +11,4 @@ def listar_produtos(request):
 def produtos_por_categoria(request):
     categorias = Categoria.objects.prefetch_related('produtos').all()
     return render(request, 'catalogo/lista_por_categoria.html', {'categorias': categorias})
+

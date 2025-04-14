@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos no Carrinho</title>
+    {% load static %}
+    <style>
+    </style>
+
+    </head>
+<body>
+        <h1>Produtos por Categoria</h1>
+        <div class="categoria">
+            <h2>{{ categoria.nome }}</h2>
+            <ul>
+                {% for produto in produtos %}
+                    <li>
+                        {{ produto.nome }} - R$ {{ produto.preco }} - {{ produto.estoque }} em estoque
+                        {% if produto.estoque == 0 %}
+                            <span class="sem-estoque">Sem Estoque</span>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+</body>
+</html>

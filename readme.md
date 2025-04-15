@@ -54,7 +54,7 @@ Siga os passos abaixo para executar o projeto localmente:
 Certifique-se de ter o Python e o Django instalados.
 
 Clone este repositório:
-`git clone <URL_DO_REPOSITORIO>`
+`git clone https://github.com/RaphaelLins6/ProjetoDjangoModels.git`
 
 Navegue até o diretório do projeto:
 `cd ProjetoDjangoModels`

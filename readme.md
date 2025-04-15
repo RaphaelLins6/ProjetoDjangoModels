@@ -6,19 +6,32 @@ Bem-vindo ao repositório do **Projeto Django Models**! Este projeto foi desenvo
 
 ## 🛠️ Modelos (Models)
 
-Os **modelos** são definidos no arquivo `blog/models.py`. Eles representam as tabelas do banco de dados e permitem manipular os dados de forma programática. Aqui está um exemplo de modelo para um post de blog:
+Os **modelos** são definidos no arquivo `blog/models.py`. Eles representam as tabelas do banco de dados e permitem manipular os dados de forma programática. Aqui está um exemplo de modelo para uma categoria de produto:
 
 ```python
 from django.db import models
 
-class Post(models.Model):
-    title = models.CharField(max_length=200)  # Título do post
-    content = models.TextField()             # Conteúdo do post
-    created_at = models.DateTimeField(auto_now_add=True)  # Data de criação
-    updated_at = models.DateTimeField(auto_now=True)      # Data de última atualização
+class Categoria(models.Model):
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField()
+    ativa = models.BooleanField(default=True)
+    criada_em = models.DateTimeField(auto_now_add=True)
+    atualizada_em = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['nome']
+        verbose_name = 'Categoria'
+
+    @property
+    def nome_maiusculo(self):
+        return self.nome.upper()
+
+    @property
+    def resumo_descricao(self):
+        return self.descricao[:50] + '...'
 
     def __str__(self):
-        return self.title
+        return self.nome
 ```
 
 ---
@@ -55,7 +68,7 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 
 ## 🌟 Funcionalidades Planejadas
 
-📌 Adicionar modelos para categorias e Produtos.
+📌 Adicionar modelos para categorias, produtos, clientes, pedidos e itens dos pedidos.
 
 📌 Criar views para exibir os dados no frontend.
 

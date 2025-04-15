@@ -79,7 +79,7 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 <p align="center"> 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/2048px-Python.svg.png" alt="Python" width="60" height="50"/> &nbsp;&nbsp; 
 <img src="https://images.icon-icons.com/2415/PNG/512/django_original_logo_icon_146559.png" alt="Django" width="60" height="50"/> &nbsp;&nbsp;
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/SQLite370.svg/2560px-SQLite370.svg.png" alt="SQLite" width="60" height="50"/> &nbsp;&nbsp;
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/SQLite370.svg/2560px-SQLite370.svg.png" alt="SQLite" width="100" height="50"/> &nbsp;&nbsp;
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png" alt="Visual Studio Code" width="60" height="50"/> &nbsp;&nbsp;
 
 ---

@@ -66,6 +66,10 @@ class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')
     produtos = models.ManyToManyField(Produto, through='ItemPedido')
     criado_em = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=50, choices=[
+
+        ('aberto', 'Em aberto'), ('rascunho', "Rascunho"), ('confirmado', "Confirmado"), ('cancelado', "Cancelado"), ('pago', "Pago"), ('enviado', "Enviado")
+    ])
     finalizado = models.BooleanField(default=False)
 
     class Meta:

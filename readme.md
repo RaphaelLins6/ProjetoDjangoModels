@@ -46,6 +46,54 @@ class Categoria(models.Model):
 
 ---
 
+## 🎨 Templates
+Os templates são definidos no diretório templates e são usados para renderizar o conteúdo HTML dinâmico no Django. Aqui está um exemplo de template para listar produtos por categoria:
+```
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos por Categoria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .categoria {
+            margin: 20px auto;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            max-width: 800px;
+            background-color: #fff;
+        }
+        .produto {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Produtos por Categoria</h1>
+    {% for categoria in categorias %}
+        <div class="categoria">
+            <h2>{{ categoria.nome }}</h2>
+            <p>{{ categoria.descricao }}</p>
+            <ul>
+                {% for produto in categoria.produtos.all %}
+                    <li class="produto">{{ produto.nome }} - R$ {{ produto.preco }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+</body>
+</html>
+```
+
+---
+
 ## 🗃️ Como criar e aplicar migrações
 
 Após definir ou alterar os modelos, você deve criar e aplicar migrações para atualizar o banco de dados:
@@ -68,6 +116,14 @@ Clone este repositório:
 
 Navegue até o diretório do projeto:
 `cd ProjetoDjangoModels`
+
+Ative o ambiente virtual:
+
+No Windows:
+`venv\Scripts\activate`
+
+No Linux/Mac:
+`source venv/bin/activate`
 
 Inicie o servidor de desenvolvimento:
 `python manage.py runserver`

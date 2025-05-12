@@ -151,7 +151,11 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 
 📌 Adicionar modelos para categorias, produtos, clientes, pedidos e itens dos pedidos.
 
+📌 Desenvolver templates dinâmicos para renderizar informações de forma interativa e estilizada.
+
 📌 Criar views para exibir os dados no frontend.
+
+📌 Implementar uma API para expor os dados do projeto, permitindo integração com outras aplicações ou serviços.
 
 ---
 

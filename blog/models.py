@@ -66,6 +66,10 @@ class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')
     produtos = models.ManyToManyField(Produto, through='ItemPedido')
     criado_em = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=50, choices=[
+
+        ('aberto', 'Em aberto'), ('rascunho', "Rascunho"), ('confirmado', "Confirmado"), ('cancelado', "Cancelado"), ('pago', "Pago"), ('enviado', "Enviado")
+    ])
     finalizado = models.BooleanField(default=False)
 
     class Meta:
@@ -82,3 +86,34 @@ class ItemPedido(models.Model):
 
     def __str__(self):
         return f'{self.quantidade}x {self.produto.nome}'
+    
+class Pagamento(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='pagamentos')
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    data_pagamento = models.DateField(auto_now_add=True)
+    metodo = models.CharField(max_length=50, choices=[
+        ('credito', 'Cartão de Crédito'),
+        ('boleto', 'Boleto Bancário'),
+        ('pix', 'PIX'),
+    ])
+    status = models.CharField(max_length=20, choices=[
+        ('pendente', 'Pendente'),
+        ('aprovado', 'Aprovado'),
+        ('recusado', 'Recusado'),
+    ])
+    comprovante = models.ImageField(upload_to='comprovantes/', null=True, blank=True)
+
+    class Meta:
+        ordering = ['-data_pagamento']
+        verbose_name = 'Pagamento'
+
+    def __str__(self):
+        return f'Pagamento #{self.id} - Pedido #{self.pedido.id}'
+
+    @property
+    def valor_formatado(self):
+        return f'R$ {self.valor:.2f}'.replace('.', ',')
+
+    @property
+    def foi_pago(self):
+        return self.status == 'aprovado'

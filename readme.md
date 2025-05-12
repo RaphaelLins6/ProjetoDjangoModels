@@ -1,6 +1,6 @@
-# 📝 Projeto Django - Modelos de Dados
+# 📝 Projeto Django 
 
-Bem-vindo ao repositório do **Projeto Django Models**! Este projeto foi desenvolvido para demonstrar a criação e utilização de **modelos no Django**, que são a base para a manipulação de dados em aplicações web. Aqui você encontrará a estrutura do projeto, explicações sobre os arquivos e como começar a utilizá-lo. 🚀
+Bem-vindo ao repositório do **Projeto Django**! Este projeto foi desenvolvido para demonstrar a criação e utilização de **modelos, templates, views e APIs no Django**, que são a base para a criação de aplicações web. Aqui você encontrará a estrutura do projeto, explicações sobre os arquivos e como começar a utilizá-lo. 🚀
 
 ---
 
@@ -46,7 +46,7 @@ class Categoria(models.Model):
 ---
 
 ## 🎨 Templates
-Os templates são definidos no diretório templates e são usados para renderizar o conteúdo HTML dinâmico no Django. Aqui está um exemplo de template para listar produtos por categoria:
+Os **templates** são definidos no diretório templates e são usados para renderizar o conteúdo HTML dinâmico no Django. Aqui está um exemplo de template para listar produtos por categoria:
 ```
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -89,6 +89,22 @@ Os templates são definidos no diretório templates e são usados para renderiza
     {% endfor %}
 </body>
 </html>
+```
+---
+
+## 🎭 Views
+
+As **views** são responsáveis por processar as requisições HTTP e retornar respostas, como páginas HTML ou dados em formato JSON. Elas conectam os modelos aos templates, permitindo a exibição de dados dinâmicos no navegador.
+
+No arquivo `blog/views.py`, você pode definir uma view para listar produtos por categoria. Aqui está um exemplo:
+
+```python
+from django.shortcuts import render
+from .models import Categoria
+
+def listar_produtos(request):
+    categorias = Categoria.objects.prefetch_related('produtos').all()  # Carrega categorias e seus produtos
+    return render(request, 'blog/listar_produtos.html', {'categorias': categorias})
 ```
 
 ---

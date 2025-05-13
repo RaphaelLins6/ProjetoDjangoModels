@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_list_or_404, get_object_or_40
 from .models import Produto, Categoria, ItemPedido, Pedido, Pagamento, Cliente
 from django.contrib import messages
 from .forms import PagamentoForm
+from .forms import ProdutoForm
 
 
 # Create your views here.
@@ -21,6 +22,16 @@ def categoria_listar(request):
     categorias = Categoria.objects.all()
     return render(request, 'categoria_listar.html', {'categorias': categorias})
 
+def criar_produto(request):
+    if request.method == 'POST':
+        form = ProdutoForm(request.POST)
+        if form.is_valid():
+            form.save()  
+            return redirect('listar_produtos')  
+    else:
+        form = ProdutoForm()
+    
+    return render(request, 'criar_produto.html', {'form': form})
 
 def adicionar_produto(request, produto_id):
     produto = get_object_or_404(Produto, id=produto_id)

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Produtos por Categoria{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Produtos por Categoria</h2>
+
+    {% for categoria in categorias %}
+        <div class="border rounded p-3 mb-4 bg-light shadow-sm">
+            <h4 class="text-dark">{{ categoria.nome }}</h4>
+            <p class="text-muted">{{ categoria.resumo_descricao }}</p>
+
+            {% if categoria.produtos.exists %}
+                <ul class="list-unstyled">
+                    {% for produto in categoria.produtos.all %}
+                        <li class="d-flex justify-content-between align-items-center border-bottom py-2">
+                            <span>{{ produto.nome }}</span>
+                            <span>
+                                <span class="text-success fw-semibold">{{ produto.preco_formatado }}</span>
+                                {% if not produto.tem_estoque %}
+                                    <span class="text-danger ms-2">(Sem estoque)</span>
+                                {% endif %}
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="fst-italic text-secondary">Sem produtos nesta categoria.</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

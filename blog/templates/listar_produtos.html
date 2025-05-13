@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Produtos{% endblock %}
+
+{% block content %}
+<h2 class="text-center mb-4">Produtos disponíveis</h2>
+
+<div class="text-center mb-4">
+    <a href="{% url 'produtos_por_categoria' %}" class="btn btn-primary">
+        Ver por Categoria
+    </a>
+</div>
+
+<div class="row">
+    {% for produto in produtos %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ produto.nome }}</h5>
+                    <p class="card-text">{{ produto.descricao }}</p>
+                    <p><strong>Preço:</strong> {{ produto.preco_formatado }}</p>
+
+                    {% if produto.tem_estoque %}
+                        <form method="post" action="{% url 'adicionar_produto' produto.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning">Adicionar ao Carrinho</button>
+                        </form>
+                    {% else %}
+                        <p class="text-danger"><em>Sem estoque</em></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-center">Nenhum produto encontrado.</p>
+    {% endfor %}
+</div>
+{% endblock %}

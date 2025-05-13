@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Pagamento{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Pagamento do Pedido #{{ pedido.id }}</h2>
+    
+    
+
+    <form method="post" enctype="multipart/form-data" class="mx-auto" style="max-width: 500px;">
+        <p class="text-center fs-5">Total: <strong>R$ {{ total|floatformat:2 }}</strong></p>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="metodo" class="form-label fs-5">Método de Pagamento</label>
+            {{ form.metodo }}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Enviar Pagamento</button>
+    </form>
+</div>
+{% endblock %}

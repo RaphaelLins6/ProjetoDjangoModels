@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Página Inicial{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1 class="mb-4">Bem-vindo ao Sistema de Vendas</h1>
+    <p class="lead">Gerencie seus produtos, clientes, pedidos e pagamentos de forma simples e eficiente.</p>
+
+    <div class="mt-5">
+        <a href="{% url 'listar_produtos' %}" class="btn btn-primary btn-lg me-2">Ver Produtos</a>
+        <a href="{% url 'pedidos' %}" class="btn btn-success btn-lg">Ver Pedidos</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,6 +1,13 @@
 .fixed-bottom-right {
     position: fixed;
-    bottom: 20px; /* Distância do botão em relação à parte inferior */
-    right: 20px; /* Distância do botão em relação à parte direita */
-    z-index: 1000; /* Garante que o botão fique acima de outros elementos */
+    bottom: 20px; 
+    right: 20px; 
+    z-index: 1000; 
+}
+
+.fixed-bottom-right-2 {
+    position: fixed;
+    bottom: 40px; 
+    right: 80px; 
+    z-index: 1000; 
 }

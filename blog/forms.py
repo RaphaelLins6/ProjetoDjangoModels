@@ -1,6 +1,7 @@
 from django import forms
 from .models import Pagamento
 from .models import Produto
+from .models import Cliente
 
 class PagamentoForm(forms.ModelForm):
     class Meta:
@@ -20,4 +21,15 @@ class ProdutoForm(forms.ModelForm):
             'preco': forms.NumberInput(attrs={'class': 'form-control'}),
             'estoque': forms.NumberInput(attrs={'class': 'form-control'}),
             'categoria': forms.SelectMultiple(attrs={'class': 'form-control'}),
+        }
+
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = ['nome', 'email', 'telefone', 'endereco']
+        widgets = {
+            'nome': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'telefone': forms.TextInput(attrs={'class': 'form-control'}),
+            'endereco': forms.TextInput(attrs={'class': 'form-control'}),
         }

@@ -3,6 +3,7 @@ from .models import Produto, Categoria, ItemPedido, Pedido, Pagamento, Cliente
 from django.contrib import messages
 from .forms import PagamentoForm
 from .forms import ProdutoForm
+from .forms import ClienteForm
 
 
 # Create your views here.
@@ -32,6 +33,17 @@ def criar_produto(request):
         form = ProdutoForm()
     
     return render(request, 'criar_produto.html', {'form': form})
+
+def criar_cliente(request):
+    if request.method == 'POST':
+        form = ClienteForm(request.POST)
+        if form.is_valid():
+            form.save()  
+            return redirect('criar_cliente')  
+    else:
+        form = ClienteForm()
+    
+    return render(request, 'criar_cliente.html', {'form': form})
 
 def adicionar_produto(request, produto_id):
     produto = get_object_or_404(Produto, id=produto_id)

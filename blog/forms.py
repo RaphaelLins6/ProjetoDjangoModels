@@ -20,7 +20,7 @@ class ProdutoForm(forms.ModelForm):
             'descricao': forms.Textarea(attrs={'class': 'form-control'}),
             'preco': forms.NumberInput(attrs={'class': 'form-control'}),
             'estoque': forms.NumberInput(attrs={'class': 'form-control'}),
-            'categoria': forms.SelectMultiple(attrs={'class': 'form-control'}),
+            'categoria': forms.Select(attrs={'class': 'form-control'}),
         }
 
 class ClienteForm(forms.ModelForm):

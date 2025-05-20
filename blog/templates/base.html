@@ -109,7 +109,7 @@
                         <a class="nav-link" href="{% url 'pedidos' %}">Pedidos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'login' %}" class="btn btn-success ms-2">Entar</a>
+                        <a href="{% url 'login' %}" class="btn btn-success ms-2">Entrar</a>
                     </li>
                     <li class="nav-item">
                         <a href="{% url 'registro' %}" class="btn btn-primary ms-2">Registrar</a>
@@ -136,20 +136,18 @@
         {% block content %}
         <h2 class="text-center mb-4">Produtos disponíveis</h2>
 
-        <div class="fixed-bottom-right">
+        <div>
             <a href="{% url 'criar_produto' %}" class="btn btn-success">
                 Inserir Produto
             </a>
         </div>
+        <br>
+        <br>
 
-        <div class="fixed-bottom-right-2">
+        <div>
             <a href="{% url 'criar_cliente' %}" class="btn btn-success">
                 Inserir Cliente
             </a>
-        </div>
-
-        <div class="row">
-            <!-- Conteúdo da página -->
         </div>
         {% endblock %}
     </main>

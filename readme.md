@@ -1,4 +1,4 @@
-# 📝 Projeto Django 
+# 📝 Projeto Django - E-commerce 
 
 Bem-vindo ao repositório do **Projeto Django**! Este projeto foi desenvolvido para demonstrar a criação e utilização de **modelos, templates, views e APIs no Django**, que são a base para a criação de aplicações web. Aqui você encontrará a estrutura do projeto, explicações sobre os arquivos e como começar a utilizá-lo. 🚀
 

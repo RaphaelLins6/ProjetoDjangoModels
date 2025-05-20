@@ -4,8 +4,8 @@ from blog import views
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path('contas/', include('contas.urls')),  # Suas rotas do app contas
-    path('register/', include('django.contrib.auth.urls')),  # Rotas padrão de autenticação
+    path('contas/', include('contas.urls')),  
+    path('register/', include('django.contrib.auth.urls')),  
     path('produtos/categorias/', views.produtos_por_categoria, name='produtos_por_categoria'),
     path('produtos/', views.listar_produtos, name='listar_produtos'),
     path('produtos/categorias/', views.produtos_por_categoria, name='produtos_por_categoria'),

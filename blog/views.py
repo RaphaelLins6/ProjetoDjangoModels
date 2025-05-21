@@ -4,6 +4,7 @@ from django.contrib import messages
 from .forms import PagamentoForm
 from .forms import ProdutoForm
 from .forms import ClienteForm
+from .forms import CategoriaForm
 
 
 # Create your views here.
@@ -36,10 +37,34 @@ def deletar_produto(request, produto_id):
 def produtos_por_categoria(request):
     categorias = Categoria.objects.prefetch_related('produtos').all()
     return render(request, 'produtos_por_categoria', {'categorias': categorias})
-    
-def categoria_listar(request):
-    categorias = Categoria.objects.all()
-    return render(request, 'categoria_listar.html', {'categorias': categorias})
+
+def criar_categoria(request):
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_categorias')
+    else:
+        form = CategoriaForm()
+    return render(request, 'criar_categoria.html', {'form': form})
+
+def editar_categoria(request, categoria_id):
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST, instance=categoria)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_categorias')
+    else:
+        form = CategoriaForm(instance=categoria)
+    return render(request, 'editar_categoria.html', {'form': form, 'categoria': categoria})
+
+def deletar_categoria(request, categoria_id):
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+    if request.method == 'POST':
+        categoria.delete()
+        return redirect('listar_categorias')
+    return render(request, 'deletar_categoria.html', {'categoria': categoria})
 
 def criar_produto(request):
     if request.method == 'POST':

@@ -8,19 +8,11 @@
     <p class="lead">Gerencie seus produtos, clientes, pedidos e pagamentos de forma simples e eficiente.</p>
 
     <div class="mt-5">
+        <a href="{% url 'produtos_por_categoria' %}" class="btn btn-primary btn-lg me-2">Ver Categorias</a>
         <a href="{% url 'listar_produtos' %}" class="btn btn-primary btn-lg me-2">Ver Produtos</a>
         <a href="{% url 'pedidos' %}" class="btn btn-success btn-lg">Ver Pedidos</a>
     </div>
 
-    <div class="fixed-bottom-right">
-    <a href="{% url 'criar_produto' %}" class="btn btn-success">
-        Inserir Produto
-    </a>
-
-    <div class="fixed-bottom-right-2">
-    <a href="{% url 'criar_cliente' %}" class="btn btn-success">
-        Inserir Cliente
-    </a>
 </div>
 </div>
 {% endblock %}

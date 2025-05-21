@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pagamento
+from .models import Categoria, Pagamento
 from .models import Produto
 from .models import Cliente
 
@@ -32,4 +32,13 @@ class ClienteForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'telefone': forms.TextInput(attrs={'class': 'form-control'}),
             'endereco': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = ['nome', 'descricao']
+        widgets = {
+            'nome': forms.TextInput(attrs={'class': 'form-control'}),
+            'descricao': forms.Textarea(attrs={'class': 'form-control'}),
         }

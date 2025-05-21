@@ -15,6 +15,24 @@ def listar_produtos(request):
     produtos = Produto.objects.all() 
     return render(request, 'listar_produtos.html', {'produtos': produtos})
 
+def editar_produto(request, produto_id):
+    produto = get_object_or_404(Produto, id=produto_id)
+    if request.method == 'POST':
+        form = ProdutoForm(request.POST, instance=produto)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_produtos')
+    else:
+        form = ProdutoForm(instance=produto)
+    return render(request, 'editar_produto.html', {'form': form, 'produto': produto})
+
+def deletar_produto(request, produto_id):
+    produto = get_object_or_404(Produto, id=produto_id)
+    if request.method == 'POST':
+        produto.delete()
+        return redirect('listar_produtos')
+    return render(request, 'deletar_produto.html', {'produto': produto})
+
 def produtos_por_categoria(request):
     categorias = Categoria.objects.prefetch_related('produtos').all()
     return render(request, 'produtos_por_categoria', {'categorias': categorias})

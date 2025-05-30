@@ -201,3 +201,5 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 Este projeto é livre para uso e modificação. Contribuições são bem-vindas! 😊
 
 ---
+
+> Projeto acadêmico desenvolvido para a disciplina de Aplicações para Internet – 8º Semestre.

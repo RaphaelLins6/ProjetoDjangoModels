@@ -71,7 +71,7 @@ document.getElementById('produto-form').addEventListener('submit', function(e) {
 });
 
 
-fetch('http://127.0.0.1:8001/api/categorias')
+fetch('http://127.0.0.1:8001/api/categorias_com_produtos')
   .then(resp => resp.json())
   .then(categorias => {
     const select = document.getElementById('id_categoria');

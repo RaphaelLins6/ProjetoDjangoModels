@@ -109,41 +109,11 @@ def listar_produtos(request):
 
 ---
 
-## APIs
+## ⚡ APIs
 
-### ⚡ Integração com FastAPI
+### Integração com FastAPI
 
 Além das views tradicionais do Django, este projeto também expõe uma **API moderna utilizando FastAPI**. Com ela, é possível consumir e manipular os dados de categorias e produtos de forma rápida e eficiente, facilitando a integração com frontends em JavaScript, aplicações móveis ou outros sistemas.
-
-### Exemplos de endpoints FastAPI:
-
-- **Listar todas as categorias:**
-  ```
-  GET /api/categorias
-  ```
-- **Listar todos os produtos:**
-  ```
-  GET /api/produtos
-  ```
-- **Listar categorias com seus produtos:**
-  ```
-  GET /api/categorias_com_produtos
-  ```
-- **Criar uma nova categoria:**
-  ```
-  POST /api/categorias
-  ```
-- **Criar um novo produto:**
-  ```
-  POST /api/produtos
-  ```
-- **Editar ou deletar categorias/produtos:**
-  ```
-  PUT /api/categorias/{id}
-  DELETE /api/categorias/{id}
-  PUT /api/produtos/{id}
-  DELETE /api/produtos/{id}
-  ```
 
 ### Como executar a API FastAPI
 
@@ -209,6 +179,15 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 
 ---
 
+## 🎬 Demonstração
+
+### Tela Inicial
+
+> Vídeo da aplicação!
+
+
+
+---
 
 ## 👥 Autores
 

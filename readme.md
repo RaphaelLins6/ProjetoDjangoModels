@@ -109,6 +109,56 @@ def listar_produtos(request):
 
 ---
 
+## APIs
+
+### ⚡ Integração com FastAPI
+
+Além das views tradicionais do Django, este projeto também expõe uma **API moderna utilizando FastAPI**. Com ela, é possível consumir e manipular os dados de categorias e produtos de forma rápida e eficiente, facilitando a integração com frontends em JavaScript, aplicações móveis ou outros sistemas.
+
+### Exemplos de endpoints FastAPI:
+
+- **Listar todas as categorias:**
+  ```
+  GET /api/categorias
+  ```
+- **Listar todos os produtos:**
+  ```
+  GET /api/produtos
+  ```
+- **Listar categorias com seus produtos:**
+  ```
+  GET /api/categorias_com_produtos
+  ```
+- **Criar uma nova categoria:**
+  ```
+  POST /api/categorias
+  ```
+- **Criar um novo produto:**
+  ```
+  POST /api/produtos
+  ```
+- **Editar ou deletar categorias/produtos:**
+  ```
+  PUT /api/categorias/{id}
+  DELETE /api/categorias/{id}
+  PUT /api/produtos/{id}
+  DELETE /api/produtos/{id}
+  ```
+
+### Como executar a API FastAPI
+
+1. Certifique-se de que as dependências estão instaladas (veja `requirements.txt`).
+2. No terminal, ative o ambiente virtual e execute:
+   ```
+   uvicorn api:app --reload --port 8001
+   ```
+3. Acesse a documentação interativa da API em:  
+   [http://127.0.0.1:8001/docs](http://127.0.0.1:8001/docs)
+
+Com a FastAPI, seu projeto Django ganha uma camada de API RESTful moderna, pronta para integração com qualquer frontend!
+
+---
+
 ## 🗃️ Como criar e aplicar migrações
 
 Após definir ou alterar os modelos, você deve criar e aplicar migrações para atualizar o banco de dados:
@@ -158,6 +208,7 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 📌 Implementar uma API para expor os dados do projeto, permitindo integração com outras aplicações ou serviços.
 
 ---
+
 
 ## 👥 Autores
 

@@ -37,7 +37,7 @@
 const produtoId = window.location.pathname.split('/').filter(Boolean).pop();
 
 function carregarCategorias(produtoCategoriaId) {
-    fetch('http://127.0.0.1:8001/api/categorias')
+    fetch('http://127.0.0.1:8001/api/categorias_com_produtos')
         .then(resp => resp.json())
         .then(categorias => {
             const select = document.getElementById('id_categoria');
@@ -60,7 +60,7 @@ window.onload = function() {
             document.getElementById('id_descricao').value = produto.descricao;
             document.getElementById('id_preco').value = produto.preco;
             document.getElementById('id_estoque').value = produto.estoque;
-            carregarCategorias(produto.categoria); // Preenche o select e seleciona a categoria do produto
+            carregarCategorias(produto.categoria); 
         });
 };
 

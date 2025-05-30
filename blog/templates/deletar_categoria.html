@@ -2,11 +2,42 @@
 {% block title %}Deletar Categoria{% endblock %}
 {% block content %}
 <div class="container mt-5">
-    <h2>Deseja deletar "{{ categoria.nome }}"?</h2>
-    <form method="post">
-        {% csrf_token %}
+    <h2 id="titulo-deletar">Deseja deletar esta categoria?</h2>
+    <form id="deletar-form">
         <button type="submit" class="btn btn-danger">Deletar</button>
         <a href="{% url 'produtos_por_categoria' %}" class="btn btn-secondary">Cancelar</a>
+        <span id="mensagem" class="ms-3"></span>
     </form>
 </div>
+<script>
+const categoriaId = window.location.pathname.split('/').filter(Boolean).pop();
+
+fetch(`http://127.0.0.1:8001/api/categorias/${categoriaId}`)
+  .then(resp => resp.json())
+  .then(categoria => {
+    if (categoria.nome) {
+      document.getElementById('titulo-deletar').innerText = `Deseja deletar "${categoria.nome}"?`;
+    } else {
+      document.getElementById('titulo-deletar').innerText = "Categoria não encontrada!";
+    }
+  });
+
+document.getElementById('deletar-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  fetch(`http://127.0.0.1:8001/api/categorias/${categoriaId}`, {
+    method: 'DELETE'
+  })
+  .then(resp => {
+    if (resp.ok) {
+      document.getElementById('mensagem').innerText = "Categoria deletada com sucesso!";
+      setTimeout(() => window.location.href = "{% url 'produtos_por_categoria' %}", 1000);
+    } else {
+      document.getElementById('mensagem').innerText = "Erro ao deletar categoria.";
+    }
+  })
+  .catch(() => {
+    document.getElementById('mensagem').innerText = "Erro ao deletar categoria.";
+  });
+});
+</script>
 {% endblock %}

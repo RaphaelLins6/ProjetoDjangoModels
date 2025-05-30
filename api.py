@@ -86,22 +86,54 @@ def deletar_produto(produto_id: int):
     prod.delete()
     return {"ok": True}
 
-@app.get("/api/categorias")
-def listar_categorias():
+@app.get("/api/categorias_com_produtos")
+def categorias_com_produtos():
     categorias = Categoria.objects.all()
-    return [{"id": c.id, "nome": c.nome, "descricao": c.descricao} for c in categorias]
+    return [
+        {
+            "id": c.id,
+            "nome": c.nome,
+            "descricao": c.descricao,
+            "produtos": [
+                {
+                    "id": p.id,
+                    "nome": p.nome,
+                    "preco": float(p.preco),
+                    "tem_estoque": p.estoque > 0
+                }
+                for p in c.produtos.all()  # <-- Corrigido aqui!
+            ]
+        }
+        for c in categorias
+    ]
 
 class CategoriaSchema(BaseModel):
     nome: str
     descricao: str = ""
 
+@app.get("/api/categorias/{categoria_id}")
+def get_categoria(categoria_id: int):
+    try:
+        c = Categoria.objects.get(id=categoria_id)
+        return {
+            "id": c.id,
+            "nome": c.nome,
+            "descricao": c.descricao
+        }
+    except Categoria.DoesNotExist:
+        return {}, 404
+    
 @app.post("/api/categorias")
 def criar_categoria(categoria: CategoriaSchema):
     nova_categoria = Categoria.objects.create(
         nome=categoria.nome,
         descricao=categoria.descricao
     )
-    return {"id": nova_categoria.id, "nome": nova_categoria.nome, "descricao": nova_categoria.descricao}
+    return {
+        "id": nova_categoria.id,
+        "nome": nova_categoria.nome,
+        "descricao": nova_categoria.descricao
+    }
 
 @app.put("/api/categorias/{categoria_id}")
 def atualizar_categoria(categoria_id: int, categoria: CategoriaSchema):

@@ -4,50 +4,57 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="text-center mb-4">Produtos por Categoria</h2>
-
-    <div class="row justify-content-center">
-        {% for categoria in categorias %}
-            <div class="col-md-8 mb-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h4 class="card-title text-dark mb-0">{{ categoria.nome }}</h4>
-                                <p class="card-text text-muted mb-2">{{ categoria.resumo_descricao }}</p>
-                            </div>
-                            <div>
-                                <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-primary btn-sm">Editar</a>
-                                <a href="{% url 'deletar_categoria' categoria.id %}" class="btn btn-danger btn-sm ms-2">Deletar</a>
-                            </div>
-                        </div>
-                        
-                        <div class="fixed-bottom-right">
-                                <a href="{% url 'criar_categoria' %}" class="btn btn-success">
-                                    Inserir Categoria
-                                </a>
-                        </div>
-                        
-                        {% if categoria.produtos.exists %}
-                            <ul class="list-group list-group-flush mt-3">
-                                {% for produto in categoria.produtos.all %}
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>{{ produto.nome }}</span>
-                                        <span>
-                                            <span class="text-success fw-semibold">{{ produto.preco_formatado }}</span>
-                                            {% if not produto.tem_estoque %}
-                                                <span class="text-danger ms-2">(Sem estoque)</span>
-                                            {% endif %}
-                                        </span>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            <p class="fst-italic text-secondary mt-2 mb-0">Sem produtos nesta categoria.</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+    <div class="row justify-content-center" id="categorias-lista">
+        <!-- Categorias e produtos serão inseridos aqui via JS -->
+    </div>
+    <div class="fixed-bottom-right">
+        <a href="{% url 'criar_categoria' %}" class="btn btn-success">
+            Inserir Categoria
+        </a>
     </div>
 </div>
+
+<script>
+fetch('http://127.0.0.1:8001/api/categorias_com_produtos')
+  .then(resp => resp.json())
+  .then(categorias => {
+    let html = '';
+    categorias.forEach(categoria => {
+      html += `
+        <div class="col-md-8 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h4 class="card-title text-dark mb-0">${categoria.nome}</h4>
+                  <p class="card-text text-muted mb-2">${categoria.descricao || ''}</p>
+                </div>
+                <div>
+                  <a href="/categorias/editar/${categoria.id}/" class="btn btn-primary btn-sm">Editar</a>
+                  <a href="/categorias/deletar/${categoria.id}/" class="btn btn-danger btn-sm ms-2">Deletar</a>
+                </div>
+              </div>
+              ${
+                categoria.produtos && categoria.produtos.length > 0
+                ? `<ul class="list-group list-group-flush mt-3">
+                    ${categoria.produtos.map(produto => `
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>${produto.nome}</span>
+                        <span>
+                          <span class="text-success fw-semibold">R$ ${produto.preco.toFixed(2)}</span>
+                          ${!produto.tem_estoque ? '<span class="text-danger ms-2">(Sem estoque)</span>' : ''}
+                        </span>
+                      </li>
+                    `).join('')}
+                  </ul>`
+                : `<p class="fst-italic text-secondary mt-2 mb-0">Sem produtos nesta categoria.</p>`
+              }
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    document.getElementById('categorias-lista').innerHTML = html;
+  });
+</script>
 {% endblock %}

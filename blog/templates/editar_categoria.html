@@ -1,13 +1,59 @@
 {% extends 'base.html' %}
-{% block title %}Criar Categoria{% endblock %}
+{% block title %}Editar Categoria{% endblock %}
 {% block content %}
 <div class="container mt-5">
-    <h2>Criar Categoria</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <h2>Editar Categoria</h2>
+    <form id="categoria-form">
+        <div class="mb-3">
+            <label for="id_nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="id_nome" name="nome" required>
+        </div>
+        <div class="mb-3">
+            <label for="id_descricao" class="form-label">Descrição</label>
+            <textarea class="form-control" id="id_descricao" name="descricao"></textarea>
+        </div>
         <button type="submit" class="btn btn-success">Salvar</button>
         <a href="{% url 'produtos_por_categoria' %}" class="btn btn-secondary">Cancelar</a>
+        <span id="mensagem" class="ms-3"></span>
     </form>
 </div>
+<script>
+const categoriaId = window.location.pathname.split('/').filter(Boolean).pop();
+
+window.onload = function() {
+    fetch(`http://127.0.0.1:8001/api/categorias/${categoriaId}`)
+        .then(resp => resp.json())
+        .then(categoria => {
+            document.getElementById('id_nome').value = categoria.nome;
+            document.getElementById('id_descricao').value = categoria.descricao;
+        });
+};
+
+document.getElementById('categoria-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const data = {
+        nome: document.getElementById('id_nome').value,
+        descricao: document.getElementById('id_descricao').value
+    };
+    fetch(`http://127.0.0.1:8001/api/categorias/${categoriaId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(async resp => {
+        const body = await resp.json().catch(() => ({}));
+        if (!resp.ok) {
+            document.getElementById('mensagem').innerText = "Erro: " + JSON.stringify(body);
+            return;
+        }
+        document.getElementById('mensagem').innerText = "Categoria atualizada com sucesso!";
+        window.location.href = "{% url 'produtos_por_categoria' %}";
+    })
+    .catch(() => {
+        document.getElementById('mensagem').innerText = "Erro ao atualizar categoria.";
+    });
+});
+</script>
 {% endblock %}

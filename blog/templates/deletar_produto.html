@@ -1,9 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h2>Deseja deletar "{{ produto.nome }}"?</h2>
-  <form method="post">
-    {% csrf_token %}
+  <h2 id="titulo-deletar">Deseja deletar este produto?</h2>
+  <form id="deletar-form">
     <button type="submit" class="btn btn-danger">Deletar</button>
     <a href="{% url 'listar_produtos' %}" class="btn btn-secondary">Cancelar</a>
+    <span id="mensagem" class="ms-3"></span>
   </form>
+  <script>
+    const produtoId = window.location.pathname.split('/').filter(Boolean).pop();
+
+    fetch(`http://127.0.0.1:8001/api/produtos/${produtoId}`)
+      .then(resp => resp.json())
+      .then(produto => {
+        document.getElementById('titulo-deletar').innerText = `Deseja deletar "${produto.nome}"?`;
+      });
+
+    document.getElementById('deletar-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      fetch(`http://127.0.0.1:8001/api/produtos/${produtoId}`, {
+        method: 'DELETE'
+      })
+      .then(resp => {
+        if (resp.ok) {
+          document.getElementById('mensagem').innerText = "Produto deletado com sucesso!";
+          setTimeout(() => window.location.href = "{% url 'listar_produtos' %}", 1000);
+        } else {
+          document.getElementById('mensagem').innerText = "Erro ao deletar produto.";
+        }
+      })
+      .catch(() => {
+        document.getElementById('mensagem').innerText = "Erro ao deletar produto.";
+      });
+    });
+  </script>
 {% endblock %}

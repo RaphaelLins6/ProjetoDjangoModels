@@ -17,34 +17,46 @@
     </a>
 </div>
 
-<div class="row">
-    {% for produto in produtos %}
+<div class="row" id="produtos-lista"></div>
+
+<script>
+fetch('http://127.0.0.1:8001/api/produtos')
+  .then(response => response.json())
+  .then(data => {
+    let html = '';
+    data.forEach(produto => {
+      html += `
         <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">{{ produto.nome }}</h5>
-                    <p class="card-text">{{ produto.descricao }}</p>
-                    <p><strong>Preço:</strong> {{ produto.preco_formatado }}</p>
-
-                    {% if produto.tem_estoque %}
-                        <form method="post" action="{% url 'adicionar_produto' produto.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-warning">Adicionar ao Carrinho</button>
-                        </form>
-                    {% else %}
-                        <p class="text-danger"><em>Sem estoque</em></p>
-                    {% endif %}
-
-                    <!-- Botões de editar e deletar para este produto -->
-                    <div class="mt-3">
-                        <a href="{% url 'editar_produto' produto.id %}" class="btn btn-primary btn-sm">Editar</a>
-                        <a href="{% url 'deletar_produto' produto.id %}" class="btn btn-danger btn-sm ms-2">Deletar</a>
-                    </div>
-                </div>
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <h5 class="card-title">${produto.nome}</h5>
+              <p class="card-text">${produto.descricao || ''}</p>
+              <p><strong>Preço:</strong> R$ ${produto.preco}</p>
+              <!-- Exemplo: estoque -->
+              ${produto.tem_estoque ? `
+                <button class="btn btn-warning adicionar-carrinho" data-id="${produto.id}">Adicionar ao Carrinho</button>
+              ` : `
+                <p class="text-danger"><em>Sem estoque</em></p>
+              `}
+              <div class="mt-3">
+                <a href="/produtos/editar/${produto.id}/" class="btn btn-primary btn-sm">Editar</a>
+                <a href="/produtos/deletar/${produto.id}/" class="btn btn-danger btn-sm ms-2">Deletar</a>
+              </div>
             </div>
+          </div>
         </div>
-    {% empty %}
-        <p class="text-center">Nenhum produto encontrado.</p>
-    {% endfor %}
-</div>
+      `;
+    });
+    document.getElementById('produtos-lista').innerHTML = html;
+
+    // Adiciona o evento para todos os botões de adicionar ao carrinho
+    document.querySelectorAll('.adicionar-carrinho').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const produtoId = this.getAttribute('data-id');
+        // Aqui você pode fazer um fetch para uma rota Django que adiciona o produto ao carrinho
+        window.location.href = `/carrinho/adicionar/${produtoId}/`;
+      });
+    });
+  });
+</script>
 {% endblock %}

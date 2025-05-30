@@ -22,6 +22,11 @@
             <label for="id_estoque" class="form-label">Estoque</label>
             <input type="number" class="form-control" id="id_estoque" name="estoque" required>
         </div>
+        <div class="mb-3">
+            <label for="id_categoria" class="form-label">Categoria</label>
+            <select class="form-control" id="id_categoria" name="categoria" required>
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Salvar Alterações</button>
         <a href="{% url 'listar_produtos' %}" class="btn btn-secondary ms-2">Cancelar</a>
         <span id="mensagem" class="ms-3"></span>
@@ -31,6 +36,22 @@
 <script>
 const produtoId = window.location.pathname.split('/').filter(Boolean).pop();
 
+function carregarCategorias(produtoCategoriaId) {
+    fetch('http://127.0.0.1:8001/api/categorias')
+        .then(resp => resp.json())
+        .then(categorias => {
+            const select = document.getElementById('id_categoria');
+            select.innerHTML = '';
+            categorias.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.id;
+                option.text = cat.nome;
+                if (cat.id === produtoCategoriaId) option.selected = true;
+                select.appendChild(option);
+            });
+        });
+}
+
 window.onload = function() {
     fetch(`http://127.0.0.1:8001/api/produtos/${produtoId}`)
         .then(resp => resp.json())
@@ -39,6 +60,7 @@ window.onload = function() {
             document.getElementById('id_descricao').value = produto.descricao;
             document.getElementById('id_preco').value = produto.preco;
             document.getElementById('id_estoque').value = produto.estoque;
+            carregarCategorias(produto.categoria); // Preenche o select e seleciona a categoria do produto
         });
 };
 
@@ -48,7 +70,8 @@ document.getElementById('produto-form').addEventListener('submit', function(e) {
         nome: document.getElementById('id_nome').value,
         descricao: document.getElementById('id_descricao').value,
         preco: parseFloat(document.getElementById('id_preco').value),
-        estoque: parseInt(document.getElementById('id_estoque').value)
+        estoque: parseInt(document.getElementById('id_estoque').value),
+        categoria: parseInt(document.getElementById('id_categoria').value)
     };
     fetch(`http://127.0.0.1:8001/api/produtos/${produtoId}`, {
         method: 'PUT',
@@ -64,7 +87,7 @@ document.getElementById('produto-form').addEventListener('submit', function(e) {
             return;
         }
         document.getElementById('mensagem').innerText = "Produto atualizado com sucesso!";
-        // window.location.href = "/produtos/";
+        window.location.href = "/produtos/";
     })
     .catch(() => {
         document.getElementById('mensagem').innerText = "Erro ao atualizar produto.";

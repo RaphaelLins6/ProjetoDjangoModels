@@ -185,7 +185,11 @@ Acesse o projeto no navegador em: http://127.0.0.1:8000.
 
 > Vídeo da aplicação!
 
+https://github.com/user-attachments/assets/ad3cd00b-17cc-4fca-b576-384aa0e8ed40
 
+> Vídeo da API!
+
+https://github.com/user-attachments/assets/97577f62-c6ba-4ca4-a642-0bba5b686c96
 
 ---
 

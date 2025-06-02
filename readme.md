@@ -189,7 +189,7 @@ https://github.com/user-attachments/assets/ad3cd00b-17cc-4fca-b576-384aa0e8ed40
 
 > Vídeo da API!
 
-https://github.com/user-attachments/assets/97577f62-c6ba-4ca4-a642-0bba5b686c96
+https://github.com/user-attachments/assets/fa529b68-302d-49f7-b783-f93898eaa731
 
 ---
 
